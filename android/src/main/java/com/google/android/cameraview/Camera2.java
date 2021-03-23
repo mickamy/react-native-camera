@@ -895,9 +895,6 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
         }
         mPictureSizes.clear();
         collectPictureSizes(mPictureSizes, map);
-        if (mPictureSize == null) {
-            mPictureSize = mPictureSizes.sizes(mAspectRatio).last();
-        }
         for (AspectRatio ratio : mPreviewSizes.ratios()) {
             if (!mPictureSizes.ratios().contains(ratio)) {
                 mPreviewSizes.remove(ratio);
@@ -906,6 +903,10 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
 
         if (!mPreviewSizes.ratios().contains(mAspectRatio)) {
             mAspectRatio = mPreviewSizes.ratios().iterator().next();
+        }
+
+        if (mPictureSize == null) {
+            mPictureSize = mPictureSizes.sizes(mAspectRatio).last();
         }
 
         mCameraOrientation = mCameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
